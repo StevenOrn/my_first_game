@@ -250,7 +250,8 @@ make_map()
  
 while not libtcod.console_is_window_closed():
     
-    if randint(1,100) == 42:
+    #spawn rate
+    if randint(1,100) <= 10:
         create_enemy()
 
     #render the screen
