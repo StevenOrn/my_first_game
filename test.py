@@ -188,7 +188,8 @@ def shoot():
         direction = (1,0)
 
     bullet = Object(player.x,player.y,'*',direction)
-    dx, dy = direction
+    
+    bullet.move(*direction)
     bullet.move(*direction)
 
     objects.append(bullet)
