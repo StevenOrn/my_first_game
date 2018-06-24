@@ -12,6 +12,7 @@ MAP_HEIGHT = 45
 LIMIT_FPS = 10  #Game speed
 
 #intialize score
+score = 0
  
  
 color_dark_wall = libtcod.Color(0, 0, 100)
@@ -30,18 +31,20 @@ class Tile:
 class Object:
     #this is a generic object: the player, a monster, an item, the stairs...
     #it's always represented by a character on screen.
+
+
     def __init__(self, x, y, char ,direction =(0,0),hp=1,hostile=False):
-        colors_dict = {3:libtcod.green,2:libtcod.yellow,1:libtcod.red}
 
         self.x = x
         self.y = y
         self.char = char
-        self.color = colors_dict[hp]
         self.direction = direction
         self.hp = hp
         self.points = hp
         self.hostile = hostile
         self.player = False
+
+        self.update_color()
 
     def isplayer(self):
         self.player = True
@@ -73,11 +76,14 @@ class Object:
     def check_hp(self):
   
         if (self.hp <= 0):
+            global score
+            #self.clear()
+            self.char = ' '
             objects.remove(self)
             if self.player:
                 gameover()
-            # elif self.hostile:
-            #     score = score + self.points
+            elif self.hostile:
+                score+= self.points
         else:
             self.update_color()
  
@@ -120,6 +126,9 @@ def render_all():
     global color_light_ground
  
     #go through all tiles, and set their background color
+
+    render_score()
+
     for y in range(MAP_HEIGHT):
         for x in range(MAP_WIDTH):
             wall = map[x][y].block_sight
@@ -188,7 +197,8 @@ def shoot():
         direction = (1,0)
 
     bullet = Object(player.x,player.y,'*',direction)
-    dx, dy = direction
+    
+    bullet.move(*direction)
     bullet.move(*direction)
 
     objects.append(bullet)
@@ -214,6 +224,11 @@ def check_collide(object):
 
 def gameover():
     make_map(True)
+
+def render_score():
+    global score
+
+    libtcod.console_print(con, 40, 47, str(score))
 
 
 
