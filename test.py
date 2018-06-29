@@ -1,13 +1,14 @@
 import libtcodpy as libtcod
 from random import randint
+import math
  
 #actual size of the window
-SCREEN_WIDTH = 80
-SCREEN_HEIGHT = 50
+SCREEN_WIDTH = 90
+SCREEN_HEIGHT = 100
  
 #size of the map
-MAP_WIDTH = 80
-MAP_HEIGHT = 45
+MAP_WIDTH = 90
+MAP_HEIGHT = 90
  
 LIMIT_FPS = 10  #Game speed
 
@@ -109,15 +110,15 @@ def make_map(endgame = False):
     #place two pillars to test the map
     for y in range(MAP_HEIGHT):
         map[MAP_WIDTH-1][y].blocked = True
-        map[MAP_WIDTH-1][y].block_sight = True
+        map[int(MAP_WIDTH/3)][y].blocked = True
+        map[int(MAP_WIDTH*2/3)][y].blocked = True
         map[0][y].blocked = True
-        map[0][y].block_sight = True
 
     for x in range(MAP_WIDTH):
         map[x][MAP_HEIGHT-1].blocked = True
-        map[x][MAP_HEIGHT-1].block_sight = True
+        map[x][int(MAP_HEIGHT/3)].blocked = True
+        map[x][int(MAP_HEIGHT*2/3)].blocked = True
         map[x][0].blocked = True
-        map[x][0].block_sight = True
 
  
  
@@ -131,8 +132,7 @@ def render_all():
 
     for y in range(MAP_HEIGHT):
         for x in range(MAP_WIDTH):
-            wall = map[x][y].block_sight
-            if wall:
+            if map[x][y].blocked:
                 libtcod.console_set_char_background(con, x, y, color_dark_wall, libtcod.BKGND_SET )
             else:
                 libtcod.console_set_char_background(con, x, y, color_dark_ground, libtcod.BKGND_SET )
@@ -228,7 +228,7 @@ def gameover():
 def render_score():
     global score
 
-    libtcod.console_print(con, 40, 47, str(score))
+    libtcod.console_print(con, int(MAP_WIDTH/2), int(SCREEN_HEIGHT-(SCREEN_HEIGHT - MAP_HEIGHT)/2), str(score))
 
 
 
