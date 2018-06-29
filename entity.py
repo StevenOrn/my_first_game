@@ -58,7 +58,7 @@ class Object:
 class Player(Object):
 
     def __init__(self,x,y,char='^'):
-        Object.__init__(self,x,y,char,libtcod.white)
+        super().__init__(self,x,y,char,libtcod.white)
 
     def shoot(self,bullets):
 
@@ -85,7 +85,7 @@ class Player(Object):
 
 class Enemy(Object):
     def __init__(self,x,y,char,hp,direction =(0,0)):
-        Object.__init__(self,x,y,char,libtcod.white,hp)
+        super().__init__(self,x,y,char,libtcod.white,hp)
         self.direction = direction
         self.points = hp
         self.update_color()
@@ -104,7 +104,7 @@ class Enemy(Object):
 
 class Bullet(Object):
     def __init__(self,x,y,char,direction):
-        Object.__init__(self,x,y,char)
+        super().__init__(self,x,y,char)
         self.direction = direction
         self.move()
 

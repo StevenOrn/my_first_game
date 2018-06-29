@@ -12,22 +12,30 @@ def render_all(con, objects, game_map, screen_width, screen_height, colors):
                 libtcod.console_set_char_background(con, x, y, colors.get('dark_ground'), libtcod.BKGND_SET)
                 
     # Draw all entities in the list
-    for bullet in objects['bullets'][:]:
-        for _ in range(2):
-            if(bullet.wall_collide() or bullet.move(objects['enemies'])):
-                clear_entity(con, bullet)
-                objects['bullets'].remove(bullet)
-            else:    
-                draw_entity(con,bullet)
 
-    for enemy in objects['enemies'][:]:
-        if(enemy.wall_collide() or enemy.move(objects['players'],objects['bullets'])):
-            if enemy.hp <1:
-                clear_entity(con, enemy)
-                objects['enemies'].remove(enemy)
-        else:
-            enemy.update_color()
-            draw_entity(con,enemy)
+    if (len(objects['players']) != 0):
+        for player in objects['players']:
+            draw_entity(con,player)
+
+
+    if (len(objects['bullets']) !=0):
+        for bullet in objects['bullets'][:]:
+            for _ in range(2):
+                if(bullet.wall_collide() or bullet.move(objects['enemies'])):
+                    clear_entity(con, bullet)
+                    objects['bullets'].remove(bullet)
+                else:    
+                    draw_entity(con,bullet)
+
+    if (len(objects['enemies']) != 0):
+        for enemy in objects['enemies'][:]:
+            if(enemy.wall_collide() or enemy.move(objects['players'],objects['bullets'])):
+                if enemy.hp <1:
+                    clear_entity(con, enemy)
+                    objects['enemies'].remove(enemy)
+            else:
+                enemy.update_color()
+                draw_entity(con,enemy)
 
         
 
