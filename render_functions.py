@@ -12,6 +12,7 @@ def render_all(con, objects, game_map, screen_width, screen_height, colors):
                 libtcod.console_set_char_background(con, x, y, colors.get('dark_ground'), libtcod.BKGND_SET)
                 
     # Draw all entities in the list
+   
 
     if (len(objects['players']) != 0):
         for player in objects['players']:

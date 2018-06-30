@@ -4,7 +4,7 @@ from random import randint
 
 
 
-class Object:
+class Thing:
     #this is a generic object: the player, a monster, an item, the stairs...
     #it's always represented by a character on screen.
 
@@ -55,7 +55,7 @@ class Object:
 
 
 
-class Player(Object):
+class Player(Thing):
 
     def __init__(self,x,y,char='^'):
         super().__init__(self,x,y,char,libtcod.white)
@@ -83,7 +83,7 @@ class Player(Object):
 
 
 
-class Enemy(Object):
+class Enemy(Thing):
     def __init__(self,x,y,char,hp,direction =(0,0)):
         super().__init__(self,x,y,char,libtcod.white,hp)
         self.direction = direction
@@ -102,7 +102,7 @@ class Enemy(Object):
 
 
 
-class Bullet(Object):
+class Bullet(Thing):
     def __init__(self,x,y,char,direction):
         super().__init__(self,x,y,char)
         self.direction = direction
@@ -133,7 +133,15 @@ def create_player(SCREEN_WIDTH,SCREEN_HEIGHT,players):
     p8 = Player(int(SCREEN_WIDTH/2), int(SCREEN_HEIGHT*3/4), '^')
     p9 = Player(int(SCREEN_WIDTH*3/4), int(SCREEN_HEIGHT*3/4), '^')
 
-    players.append([p1,p2,p3,p4,p5,p6,p7,p8,p9])
+    players.append(p1)
+    players.append(p2)
+    players.append(p3)
+    players.append(p4)
+    players.append(p5)
+    players.append(p6)
+    players.append(p7)
+    players.append(p8)
+    players.append(p9)
     
 
 def create_enemy(MAP_WIDTH,MAP_HEIGHT,objects):
