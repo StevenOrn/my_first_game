@@ -107,7 +107,7 @@ class Bullet(Thing):
     def __init__(self,x,y,char,direction):
         super().__init__(x,y,char)
         self.direction = direction
-        self.move()
+       
 
     def move(self,enemy_list):
         super().move(*self.direction)
