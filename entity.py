@@ -25,7 +25,8 @@ class Thing:
         
 
     def wall_collide(self,game_map):
-        return(game_map[self.x + dx][self.y + dy].blocked)
+        dx, dy = self.direction
+        return(game_map.tiles[self.x + dx][self.y + dy].blocked)
 
 
     def list_collide(self,object_list):
@@ -58,7 +59,7 @@ class Thing:
 class Player(Thing):
 
     def __init__(self,x,y,char='^'):
-        super().__init__(self,x,y,char,libtcod.white)
+        super().__init__(x,y,char)
 
     def shoot(self,bullets):
 
@@ -85,7 +86,7 @@ class Player(Thing):
 
 class Enemy(Thing):
     def __init__(self,x,y,char,hp,direction =(0,0)):
-        super().__init__(self,x,y,char,libtcod.white,hp)
+        super().__init__(x,y,char,libtcod.white,hp)
         self.direction = direction
         self.points = hp
         self.update_color()
@@ -104,7 +105,7 @@ class Enemy(Thing):
 
 class Bullet(Thing):
     def __init__(self,x,y,char,direction):
-        super().__init__(self,x,y,char)
+        super().__init__(x,y,char)
         self.direction = direction
         self.move()
 
@@ -145,17 +146,18 @@ def create_player(SCREEN_WIDTH,SCREEN_HEIGHT,players):
     
 
 def create_enemy(MAP_WIDTH,MAP_HEIGHT,objects):
+    # import pdb; pdb.set_trace()
 
     direction = (randint(-1,1),randint(-1,1))
     hp = randint(1,3)
     x = randint(2, MAP_WIDTH -2)
     y = randint(2, MAP_HEIGHT -2)
 
-    for player in objects['players']:
-        if not(player.nsz(x,y)):
-            break
-    else:
-        objects['enemies'].append(Enemy(x,y,'@',hp,direction))
+    # for player in objects['players']:
+    #     if not(player.nsz(x,y)):
+    #         break
+    # else:
+    objects['enemies'].append(Enemy(x,y,'@',hp,direction))
 
 
 

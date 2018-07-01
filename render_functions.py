@@ -22,7 +22,7 @@ def render_all(con, objects, game_map, screen_width, screen_height, colors):
     if (len(objects['bullets']) !=0):
         for bullet in objects['bullets'][:]:
             for _ in range(2):
-                if(bullet.wall_collide() or bullet.move(objects['enemies'])):
+                if(bullet.wall_collide(game_map) or bullet.move(objects['enemies'])):
                     clear_entity(con, bullet)
                     objects['bullets'].remove(bullet)
                 else:    
@@ -30,7 +30,7 @@ def render_all(con, objects, game_map, screen_width, screen_height, colors):
 
     if (len(objects['enemies']) != 0):
         for enemy in objects['enemies'][:]:
-            if(enemy.wall_collide() or enemy.move(objects['players'],objects['bullets'])):
+            if(enemy.wall_collide(game_map) or enemy.move(objects['players'],objects['bullets'])):
                 if enemy.hp <1:
                     clear_entity(con, enemy)
                     objects['enemies'].remove(enemy)

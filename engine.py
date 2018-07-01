@@ -62,14 +62,9 @@ def main():
 
         libtcod.console_flush()
 
-
-       
-        if (len(objects['players']) != 0):
-            clear_all(con, objects['players'])
-        if (len(objects['enemies']) != 0):
-            clear_all(con, objects['enemies'])
-        if (len(objects['bullets']) !=0):
-            clear_all(con, objects['bullets'])
+        clear_all(con, objects['players'])
+        clear_all(con, objects['enemies'])
+        clear_all(con, objects['bullets'])
     
         #handle keys and exit game if needed
         exit = handle_keys(objects)
