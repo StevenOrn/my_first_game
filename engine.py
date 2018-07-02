@@ -40,7 +40,7 @@ def main():
     
     #the Dict of List of Objects
     objects = {'players':[],'enemies':[],'bullets':[]}
-    create_player(SCREEN_WIDTH, SCREEN_HEIGHT,objects['players'])
+    create_player(MAP_WIDTH, MAP_HEIGHT,objects['players'])
 
 
     

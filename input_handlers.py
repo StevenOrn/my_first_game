@@ -14,7 +14,7 @@ def handle_keys(objects):
     
     if libtcod.console_is_key_pressed(libtcod.KEY_SPACE):
         for player in objects['players']:
-            player.shoot(objects['bullets'])
+            player.shoot(objects['bullets'],objects['enemies'])
  
     #movement keys
     if libtcod.console_is_key_pressed(libtcod.KEY_UP):

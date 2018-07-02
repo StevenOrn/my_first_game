@@ -61,7 +61,7 @@ class Player(Thing):
     def __init__(self,x,y,char='^'):
         super().__init__(x,y,char)
 
-    def shoot(self,bullets):
+    def shoot(self,bullets,enemies):
 
         if self.char == '^':
             direction = (0,-1)
@@ -75,7 +75,7 @@ class Player(Thing):
         elif self.char == '>':
             direction = (1,0)
 
-        bullets.append(Bullet(self.x,self.y,'*',direction))      
+        bullets.append(Bullet(self.x,self.y,'*',direction,enemies))      
 
     def nsz(self,x,y): #no spawn zone around player
         spacing = 2 #the amount of space around player where enemies can't spawn
@@ -94,7 +94,8 @@ class Enemy(Thing):
 
     def update_color(self):
         colors_dict = {3:libtcod.green,2:libtcod.yellow,1:libtcod.red}
-        self.color = colors_dict[self.hp]
+        if self.hp >0:
+            self.color = colors_dict[self.hp]
 
     def move(self,player_list,bullet_list):
         super().move(*self.direction)
@@ -104,9 +105,10 @@ class Enemy(Thing):
 
 
 class Bullet(Thing):
-    def __init__(self,x,y,char,direction):
+    def __init__(self,x,y,char,direction,enemies):
         super().__init__(x,y,char)
         self.direction = direction
+        self.move(enemies)
        
 
     def move(self,enemy_list):
@@ -118,21 +120,21 @@ class Bullet(Thing):
 
 
 
-def create_player(SCREEN_WIDTH,SCREEN_HEIGHT,players):
+def create_player(MAP_WIDTH,MAP_HEIGHT,players):
     #player locations
     # p1|p2|p3
     # p4|p5|p6
     # p7|p8|p9
 
-    p1 = Player(int(SCREEN_WIDTH/4), int(SCREEN_HEIGHT/4), '^')
-    p2 = Player(int(SCREEN_WIDTH/2), int(SCREEN_HEIGHT/4), '^')
-    p3 = Player(int(SCREEN_WIDTH*3/4), int(SCREEN_HEIGHT/4), '^')
-    p4 = Player(int(SCREEN_WIDTH/4), int(SCREEN_HEIGHT/2), '^')
-    p5 = Player(int(SCREEN_WIDTH/2), int(SCREEN_HEIGHT/2), '^')
-    p6 = Player(int(SCREEN_WIDTH*3/4), int(SCREEN_HEIGHT/2), '^')
-    p7 = Player(int(SCREEN_WIDTH/4), int(SCREEN_HEIGHT*3/4), '^')
-    p8 = Player(int(SCREEN_WIDTH/2), int(SCREEN_HEIGHT*3/4), '^')
-    p9 = Player(int(SCREEN_WIDTH*3/4), int(SCREEN_HEIGHT*3/4), '^')
+    p1 = Player(int(MAP_WIDTH/6), int(MAP_HEIGHT/6), '^')
+    p2 = Player(int(MAP_WIDTH/2), int(MAP_HEIGHT/6), '^')
+    p3 = Player(int(MAP_WIDTH*5/6), int(MAP_HEIGHT/6), '^')
+    p4 = Player(int(MAP_WIDTH/6), int(MAP_HEIGHT/2), '^')
+    p5 = Player(int(MAP_WIDTH/2), int(MAP_HEIGHT/2), '^')
+    p6 = Player(int(MAP_WIDTH*5/6), int(MAP_HEIGHT/2), '^')
+    p7 = Player(int(MAP_WIDTH/6), int(MAP_HEIGHT*5/6), '^')
+    p8 = Player(int(MAP_WIDTH/2), int(MAP_HEIGHT*5/6), '^')
+    p9 = Player(int(MAP_WIDTH*5/6), int(MAP_HEIGHT*5/6), '^')
 
     players.append(p1)
     players.append(p2)

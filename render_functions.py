@@ -22,10 +22,11 @@ def render_all(con, objects, game_map, screen_width, screen_height, colors):
     if (len(objects['bullets']) !=0):
         for bullet in objects['bullets'][:]:
             for _ in range(2):
+                clear_entity(con, bullet)
                 if(bullet.wall_collide(game_map) or bullet.move(objects['enemies'])):
                     clear_entity(con, bullet)
                     #objects['bullets'].remove(bullet)
-                else:    
+                else:   
                     draw_entity(con,bullet)
 
     if (len(objects['enemies']) != 0):

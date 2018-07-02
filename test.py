@@ -110,14 +110,14 @@ def make_map(endgame = False):
     #place two pillars to test the map
     for y in range(MAP_HEIGHT):
         map[MAP_WIDTH-1][y].blocked = True
-        map[int(MAP_WIDTH/3)][y].blocked = True
-        map[int(MAP_WIDTH*2/3)][y].blocked = True
+       # map[int(MAP_WIDTH/3)][y].blocked = True
+       # map[int(MAP_WIDTH*2/3)][y].blocked = True
         map[0][y].blocked = True
 
     for x in range(MAP_WIDTH):
         map[x][MAP_HEIGHT-1].blocked = True
-        map[x][int(MAP_HEIGHT/3)].blocked = True
-        map[x][int(MAP_HEIGHT*2/3)].blocked = True
+       # map[x][int(MAP_HEIGHT/3)].blocked = True
+       # map[x][int(MAP_HEIGHT*2/3)].blocked = True
         map[x][0].blocked = True
 
  
